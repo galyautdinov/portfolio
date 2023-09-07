@@ -1,0 +1,59 @@
+D:\source\repos\RealEstateApp\RealEstateApp\bin\Debug\RealEstateApp.exe.config
+D:\source\repos\RealEstateApp\RealEstateApp\bin\Debug\RealEstateApp.exe
+D:\source\repos\RealEstateApp\RealEstateApp\bin\Debug\RealEstateApp.pdb
+D:\source\repos\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.csprojAssemblyReference.cache
+D:\source\repos\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.MainForm.resources
+D:\source\repos\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.Properties.Resources.resources
+D:\source\repos\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.csproj.GenerateResource.cache
+D:\source\repos\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.exe
+D:\source\repos\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.pdb
+D:\source\repos\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.ClientForm.resources
+D:\source\repos\RealEstateApp\RealEstateApp\bin\Debug\RealEstateDB.mdf
+D:\source\repos\RealEstateApp\RealEstateApp\bin\Debug\RealEstateDB_log.ldf
+D:\source\repos\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.ClientInfoForm.resources
+C:\Users\Consult\source\repos\RealEstateApp\RealEstateApp\bin\Debug\RealEstateDB.mdf
+C:\Users\Consult\source\repos\RealEstateApp\RealEstateApp\bin\Debug\RealEstateDB_log.ldf
+C:\Users\Consult\source\repos\RealEstateApp\RealEstateApp\bin\Debug\RealEstateApp.exe.config
+C:\Users\Consult\source\repos\RealEstateApp\RealEstateApp\bin\Debug\RealEstateApp.exe
+C:\Users\Consult\source\repos\RealEstateApp\RealEstateApp\bin\Debug\RealEstateApp.pdb
+C:\Users\Consult\source\repos\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.csprojAssemblyReference.cache
+C:\Users\Consult\source\repos\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.ClientForm.resources
+C:\Users\Consult\source\repos\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.ClientInfoForm.resources
+C:\Users\Consult\source\repos\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.MainForm.resources
+C:\Users\Consult\source\repos\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.Properties.Resources.resources
+C:\Users\Consult\source\repos\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.csproj.GenerateResource.cache
+C:\Users\Consult\source\repos\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.exe
+C:\Users\Consult\source\repos\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.pdb
+C:\Users\Consult\source\repos\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.AgentForm.resources
+C:\Users\Consult\source\repos\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.AgentInfoForm.resources
+C:\Users\Consult\source\repos\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.RealEstateForm.resources
+C:\Users\Consult\source\repos\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.RealEstateInfoForm.resources
+C:\Users\Consult\source\repos\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.SupplyForm.resources
+C:\Users\Consult\source\repos\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.SupplyInfoForm.resources
+C:\Users\Consult\source\repos\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.DemandForm.resources
+C:\Users\Consult\source\repos\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.DemandInfoForm.resources
+C:\Users\Consult\source\repos\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.DealForm.resources
+C:\Users\Consult\source\repos\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.DealInfoForm.resources
+D:\Документы\Горин\Производственная практика\RealEstateApp\RealEstateApp\bin\Debug\RealEstateDB.mdf
+D:\Документы\Горин\Производственная практика\RealEstateApp\RealEstateApp\bin\Debug\RealEstateDB_log.ldf
+D:\Документы\Горин\Производственная практика\RealEstateApp\RealEstateApp\bin\Debug\RealEstateApp.exe.config
+D:\Документы\Горин\Производственная практика\RealEstateApp\RealEstateApp\bin\Debug\RealEstateApp.exe
+D:\Документы\Горин\Производственная практика\RealEstateApp\RealEstateApp\bin\Debug\RealEstateApp.pdb
+D:\Документы\Горин\Производственная практика\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.csprojAssemblyReference.cache
+D:\Документы\Горин\Производственная практика\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.AgentForm.resources
+D:\Документы\Горин\Производственная практика\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.AgentInfoForm.resources
+D:\Документы\Горин\Производственная практика\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.ClientForm.resources
+D:\Документы\Горин\Производственная практика\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.ClientInfoForm.resources
+D:\Документы\Горин\Производственная практика\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.DealForm.resources
+D:\Документы\Горин\Производственная практика\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.DealInfoForm.resources
+D:\Документы\Горин\Производственная практика\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.DemandForm.resources
+D:\Документы\Горин\Производственная практика\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.DemandInfoForm.resources
+D:\Документы\Горин\Производственная практика\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.MainForm.resources
+D:\Документы\Горин\Производственная практика\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.Properties.Resources.resources
+D:\Документы\Горин\Производственная практика\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.RealEstateForm.resources
+D:\Документы\Горин\Производственная практика\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.RealEstateInfoForm.resources
+D:\Документы\Горин\Производственная практика\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.SupplyForm.resources
+D:\Документы\Горин\Производственная практика\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.SupplyInfoForm.resources
+D:\Документы\Горин\Производственная практика\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.csproj.GenerateResource.cache
+D:\Документы\Горин\Производственная практика\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.exe
+D:\Документы\Горин\Производственная практика\RealEstateApp\RealEstateApp\obj\Debug\RealEstateApp.pdb
