@@ -92,20 +92,54 @@ namespace XmlReportProcessor
         }
 
         private void InitializeDataTable()
-        {
-            dataTable = new DataTable();
-            dataTable.Columns.Add("Employee", typeof(string));
-            dataTable.Columns.Add("January", typeof(decimal));
-            dataTable.Columns.Add("February", typeof(decimal));
-            dataTable.Columns.Add("March", typeof(decimal));
-            dataTable.Columns.Add("Total", typeof(decimal));
-        }
+		{
+			dataTable = new DataTable();
+			dataTable.Columns.Add("Employee", typeof(string));
+			
+			string[] commonMonths = { "january", "february", "march", "april", "may", "june",
+									 "july", "august", "september", "october", "november", "december" };
+			
+			foreach (var month in commonMonths)
+			{
+				dataTable.Columns.Add(month, typeof(decimal));
+			}
+			
+			dataTable.Columns.Add("Total", typeof(decimal));
+		}
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             projectRoot = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName + "\\portfolio\\XmlReportProcessor\\";
             dataGridView.DataSource = dataTable;
         }
+		
+		private void UpdateGridViewColumns()
+		{
+			// Скрываем технические колонки и настраиваем внешний вид
+			foreach (DataGridViewColumn column in dataGridView.Columns)
+			{
+				if (column.Name == "Employee")
+				{
+					column.HeaderText = "Сотрудник";
+					column.Width = 150;
+					column.Frozen = true;
+				}
+				else if (column.Name == "Total")
+				{
+					column.HeaderText = "Общая сумма";
+					column.Width = 100;
+					column.DefaultCellStyle.Format = "N2";
+				}
+				else
+				{
+					// Для месяцев делаем заголовок с большой буквы
+					column.HeaderText = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(column.Name);
+					column.Width = 80;
+					column.DefaultCellStyle.Format = "N2";
+					column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+				}
+			}
+		}
 
         private void btnProcess_Click(object sender, EventArgs e)
         {
@@ -115,6 +149,13 @@ namespace XmlReportProcessor
                 string dataPath = Path.Combine(projectRoot, "Data", dataFileName);
                 string xsltPath = Path.Combine(projectRoot, "Resources", "TransformToEmployees.xslt");
                 string employeesPath = Path.Combine(projectRoot, "Data", "Employees.xml");
+
+				// Проверяем существование файла
+				if (!File.Exists(dataPath))
+				{
+					MessageBox.Show($"Data file not found: {dataPath}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					return;
+				}
 
                 // 1. Запускаем XSLT-преобразование
                 RunXsltTransformation(dataPath, xsltPath, employeesPath);
@@ -130,6 +171,7 @@ namespace XmlReportProcessor
                 
                 // 4. Обновляем DataGridView
                 UpdateDataGridView(employeesPath);
+				UpdateGridViewColumns();
                 
                 MessageBox.Show("Processing completed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -202,45 +244,67 @@ namespace XmlReportProcessor
         }
 
         private void UpdateDataGridView(string xmlPath)
-        {
-            dataTable.Rows.Clear();
+		{
+			dataTable.Rows.Clear();
 
-            var doc = new XmlDocument();
-            doc.Load(xmlPath);
+			var doc = new XmlDocument();
+			doc.Load(xmlPath);
 
-            var employees = doc.SelectNodes("/Employees/Employee");
-            foreach (XmlElement employee in employees)
-            {
-                string employeeName = $"{employee.GetAttribute("name")} {employee.GetAttribute("surname")}";
-                decimal totalSalary = decimal.Parse(employee.GetAttribute("total-salary"), CultureInfo.InvariantCulture);
-                
-                DataRow row = dataTable.NewRow();
-                row["Employee"] = employeeName;
-                row["Total"] = totalSalary;
+			var employees = doc.SelectNodes("/Employees/Employee");
+			foreach (XmlElement employee in employees)
+			{
+				string employeeName = $"{employee.GetAttribute("name")} {employee.GetAttribute("surname")}";
+				decimal totalSalary = decimal.Parse(employee.GetAttribute("total-salary"), CultureInfo.InvariantCulture);
+				
+				DataRow row = dataTable.NewRow();
+				row["Employee"] = employeeName;
+				row["Total"] = totalSalary;
 
-                var salaries = employee.SelectNodes("salary");
-                foreach (XmlElement salary in salaries)
-                {
-                    string mount = salary.GetAttribute("mount");
-                    decimal amount = decimal.Parse(salary.GetAttribute("amount").Replace(',', '.'), CultureInfo.InvariantCulture);
-                    
-                    switch (mount.ToLower())
-                    {
-                        case "january": row["January"] = amount; break;
-                        case "february": row["February"] = amount; break;
-                        case "march": row["March"] = amount; break;
-                    }
-                }
+				var salaries = employee.SelectNodes("salary");
+				foreach (XmlElement salary in salaries)
+				{
+					string mount = salary.GetAttribute("mount").ToLower();
+					decimal amount = decimal.Parse(salary.GetAttribute("amount").Replace(',', '.'), CultureInfo.InvariantCulture);
+					
+					// Динамически добавляем колонки для месяцев, если их еще нет
+					if (!dataTable.Columns.Contains(mount))
+					{
+						dataTable.Columns.Add(mount, typeof(decimal));
+					}
+					
+					row[mount] = amount;
+				}
 
-                dataTable.Rows.Add(row);
-            }
-        }
+				dataTable.Rows.Add(row);
+			}
 
-        private void btnAddData_Click(object sender, EventArgs e)
-        {
-            // Реализация добавления данных будет в следующем шаге
-            MessageBox.Show("This feature will be implemented in the next step", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
+			// Обновляем DataGridView после изменения структуры таблицы
+			dataGridView.DataSource = null;
+			dataGridView.DataSource = dataTable;
+		}
+
+		private void btnAddData_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				string dataPath = Path.Combine(projectRoot, "Data", "Data1.xml");
+				
+				// Показываем форму добавления данных
+				using (AddDataForm addForm = new AddDataForm(dataPath))
+				{
+					if (addForm.ShowDialog() == DialogResult.OK)
+					{
+						// После добавления данных автоматически запускаем обработку
+						cbDataFile.SelectedItem = "Data1.xml";
+						btnProcess_Click(sender, e);
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
 
         private Button btnProcess;
         private DataGridView dataGridView;

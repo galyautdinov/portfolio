@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("XmlReportProcessor")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+df9f2976dc770730e760bb05399d643d9fadc23e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c019fe48cec8097e25fc0b96f7b452c3325d7cfc")]
 [assembly: System.Reflection.AssemblyProductAttribute("XmlReportProcessor")]
 [assembly: System.Reflection.AssemblyTitleAttribute("XmlReportProcessor")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

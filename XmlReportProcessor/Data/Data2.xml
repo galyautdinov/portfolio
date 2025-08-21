@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Pay total="12003.20">
+<Pay>
   <january>
     <item name="Lena" surname="Ivanova" amount="2001" mount="january" />
     <item name="Masha" surname="Ivanova" amount="2000.0" mount="january" />
