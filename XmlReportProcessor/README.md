@@ -74,13 +74,19 @@
 # Установка и запуск
 
 1. Клонирование репозитория
+```bash
 git clone https://github.com/galyautdinov/portfolio.git
 cd portfolio/XmlReportProcessor/Source
+```
 2. Сборка проекта
+```bash
 dotnet restore
 dotnet build
+```
 3. Запуск приложения
+```bash
 dotnet run
+```
 
 # Использование приложения
 
