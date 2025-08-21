@@ -1,0 +1,15 @@
+D:\Документы\Горин\Тестовые\portfolio\XmlReportProcessor\Source\bin\Debug\net8.0\XmlReportProcessor.exe
+D:\Документы\Горин\Тестовые\portfolio\XmlReportProcessor\Source\bin\Debug\net8.0\XmlReportProcessor.deps.json
+D:\Документы\Горин\Тестовые\portfolio\XmlReportProcessor\Source\bin\Debug\net8.0\XmlReportProcessor.runtimeconfig.json
+D:\Документы\Горин\Тестовые\portfolio\XmlReportProcessor\Source\bin\Debug\net8.0\XmlReportProcessor.dll
+D:\Документы\Горин\Тестовые\portfolio\XmlReportProcessor\Source\bin\Debug\net8.0\XmlReportProcessor.pdb
+D:\Документы\Горин\Тестовые\portfolio\XmlReportProcessor\Source\obj\Debug\net8.0\XmlReportProcessor.GeneratedMSBuildEditorConfig.editorconfig
+D:\Документы\Горин\Тестовые\portfolio\XmlReportProcessor\Source\obj\Debug\net8.0\XmlReportProcessor.AssemblyInfoInputs.cache
+D:\Документы\Горин\Тестовые\portfolio\XmlReportProcessor\Source\obj\Debug\net8.0\XmlReportProcessor.AssemblyInfo.cs
+D:\Документы\Горин\Тестовые\portfolio\XmlReportProcessor\Source\obj\Debug\net8.0\XmlReportProcessor.csproj.CoreCompileInputs.cache
+D:\Документы\Горин\Тестовые\portfolio\XmlReportProcessor\Source\obj\Debug\net8.0\XmlReportProcessor.sourcelink.json
+D:\Документы\Горин\Тестовые\portfolio\XmlReportProcessor\Source\obj\Debug\net8.0\XmlReportProcessor.dll
+D:\Документы\Горин\Тестовые\portfolio\XmlReportProcessor\Source\obj\Debug\net8.0\refint\XmlReportProcessor.dll
+D:\Документы\Горин\Тестовые\portfolio\XmlReportProcessor\Source\obj\Debug\net8.0\XmlReportProcessor.pdb
+D:\Документы\Горин\Тестовые\portfolio\XmlReportProcessor\Source\obj\Debug\net8.0\XmlReportProcessor.genruntimeconfig.cache
+D:\Документы\Горин\Тестовые\portfolio\XmlReportProcessor\Source\obj\Debug\net8.0\ref\XmlReportProcessor.dll
