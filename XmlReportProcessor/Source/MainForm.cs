@@ -12,6 +12,7 @@ namespace XmlReportProcessor
     {
         private string projectRoot;
         private DataTable dataTable;
+        private Label lblTotalSummary;
 
         public MainForm()
         {
@@ -26,6 +27,7 @@ namespace XmlReportProcessor
             this.cbDataFile = new ComboBox();
             this.label1 = new Label();
             this.btnAddData = new Button();
+            this.lblTotalSummary = new Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             
@@ -47,6 +49,7 @@ namespace XmlReportProcessor
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.Size = new System.Drawing.Size(760, 380);
             this.dataGridView.TabIndex = 1;
+            this.dataGridView.ReadOnly = true;
             
             // cbDataFile
             this.cbDataFile.FormattingEnabled = true;
@@ -76,8 +79,17 @@ namespace XmlReportProcessor
             this.btnAddData.UseVisualStyleBackColor = true;
             this.btnAddData.Click += new System.EventHandler(this.btnAddData_Click);
             
+            // lblTotalSummary
+            this.lblTotalSummary.AutoSize = true;
+            this.lblTotalSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.lblTotalSummary.Location = new System.Drawing.Point(300, 45);
+            this.lblTotalSummary.Name = "lblTotalSummary";
+            this.lblTotalSummary.Size = new System.Drawing.Size(0, 17);
+            this.lblTotalSummary.TabIndex = 5;
+            
             // MainForm
             this.ClientSize = new System.Drawing.Size(784, 471);
+            this.Controls.Add(this.lblTotalSummary);
             this.Controls.Add(this.btnAddData);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cbDataFile);
@@ -92,54 +104,26 @@ namespace XmlReportProcessor
         }
 
         private void InitializeDataTable()
-		{
-			dataTable = new DataTable();
-			dataTable.Columns.Add("Employee", typeof(string));
-			
-			string[] commonMonths = { "january", "february", "march", "april", "may", "june",
-									 "july", "august", "september", "october", "november", "december" };
-			
-			foreach (var month in commonMonths)
-			{
-				dataTable.Columns.Add(month, typeof(decimal));
-			}
-			
-			dataTable.Columns.Add("Total", typeof(decimal));
-		}
+        {
+            dataTable = new DataTable();
+            dataTable.Columns.Add("Employee", typeof(string));
+            
+            string[] commonMonths = { "january", "february", "march", "april", "may", "june",
+                             "july", "august", "september", "october", "november", "december" };
+            
+            foreach (var month in commonMonths)
+            {
+                dataTable.Columns.Add(month, typeof(decimal));
+            }
+            
+            dataTable.Columns.Add("Total", typeof(decimal));
+        }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             projectRoot = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName + "\\portfolio\\XmlReportProcessor\\";
             dataGridView.DataSource = dataTable;
         }
-		
-		private void UpdateGridViewColumns()
-		{
-			// Скрываем технические колонки и настраиваем внешний вид
-			foreach (DataGridViewColumn column in dataGridView.Columns)
-			{
-				if (column.Name == "Employee")
-				{
-					column.HeaderText = "Сотрудник";
-					column.Width = 150;
-					column.Frozen = true;
-				}
-				else if (column.Name == "Total")
-				{
-					column.HeaderText = "Общая сумма";
-					column.Width = 100;
-					column.DefaultCellStyle.Format = "N2";
-				}
-				else
-				{
-					// Для месяцев делаем заголовок с большой буквы
-					column.HeaderText = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(column.Name);
-					column.Width = 80;
-					column.DefaultCellStyle.Format = "N2";
-					column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-				}
-			}
-		}
 
         private void btnProcess_Click(object sender, EventArgs e)
         {
@@ -150,12 +134,12 @@ namespace XmlReportProcessor
                 string xsltPath = Path.Combine(projectRoot, "Resources", "TransformToEmployees.xslt");
                 string employeesPath = Path.Combine(projectRoot, "Data", "Employees.xml");
 
-				// Проверяем существование файла
-				if (!File.Exists(dataPath))
-				{
-					MessageBox.Show($"Data file not found: {dataPath}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					return;
-				}
+                // Проверяем существование файла
+                if (!File.Exists(dataPath))
+                {
+                    MessageBox.Show($"Data file not found: {dataPath}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
                 // 1. Запускаем XSLT-преобразование
                 RunXsltTransformation(dataPath, xsltPath, employeesPath);
@@ -171,7 +155,7 @@ namespace XmlReportProcessor
                 
                 // 4. Обновляем DataGridView
                 UpdateDataGridView(employeesPath);
-				UpdateGridViewColumns();
+                UpdateGridViewColumns();
                 
                 MessageBox.Show("Processing completed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -183,128 +167,191 @@ namespace XmlReportProcessor
 
         private void RunXsltTransformation(string xmlPath, string xsltPath, string outputPath)
         {
-            var xslt = new XslCompiledTransform();
-            xslt.Load(xsltPath);
-            xslt.Transform(xmlPath, outputPath);
+            try
+            {
+                var xslt = new XslCompiledTransform();
+                xslt.Load(xsltPath);
+                xslt.Transform(xmlPath, outputPath);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"XSLT transformation failed: {ex.Message}", ex);
+            }
         }
 
         private void AddSalarySumAttribute(string xmlPath)
         {
+            try
+            {
+                var doc = new XmlDocument();
+                doc.Load(xmlPath);
+
+                var employees = doc.SelectNodes("/Employees/Employee");
+                foreach (XmlElement employee in employees)
+                {
+                    decimal totalSalary = 0;
+                    var salaries = employee.SelectNodes("salary");
+                    
+                    foreach (XmlElement salary in salaries)
+                    {
+                        string amountValue = salary.GetAttribute("amount");
+                        if (decimal.TryParse(amountValue.Replace(',', '.'), 
+                                            NumberStyles.Any, 
+                                            CultureInfo.InvariantCulture, 
+                                            out decimal amount))
+                        {
+                            totalSalary += amount;
+                        }
+                    }
+                    
+                    employee.SetAttribute("total-salary", totalSalary.ToString("F2", CultureInfo.InvariantCulture));
+                }
+
+                doc.Save(xmlPath);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to add salary sum attribute: {ex.Message}", ex);
+            }
+        }
+
+        private void AddTotalSumAttribute(string xmlPath)
+        {
+            try
+            {
+                var doc = new XmlDocument();
+                doc.Load(xmlPath);
+
+                decimal totalAmount = 0;
+                var items = doc.SelectNodes("//item");
+                
+                foreach (XmlElement item in items)
+                {
+                    string amountValue = item.GetAttribute("amount");
+                    if (decimal.TryParse(amountValue.Replace(',', '.'), 
+                                        NumberStyles.Any, 
+                                        CultureInfo.InvariantCulture, 
+                                        out decimal amount))
+                    {
+                        totalAmount += amount;
+                    }
+                }
+
+                var payElement = doc.DocumentElement;
+                payElement.SetAttribute("total", totalAmount.ToString("F2", CultureInfo.InvariantCulture));
+                
+                doc.Save(xmlPath);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to add total sum attribute: {ex.Message}", ex);
+            }
+        }
+
+        private void UpdateDataGridView(string xmlPath)
+        {
+            dataTable.Rows.Clear();
+
             var doc = new XmlDocument();
             doc.Load(xmlPath);
 
             var employees = doc.SelectNodes("/Employees/Employee");
             foreach (XmlElement employee in employees)
             {
-                decimal totalSalary = 0;
-                var salaries = employee.SelectNodes("salary");
+                string employeeName = $"{employee.GetAttribute("name")} {employee.GetAttribute("surname")}";
+                decimal totalSalary = decimal.Parse(employee.GetAttribute("total-salary"), CultureInfo.InvariantCulture);
                 
+                DataRow row = dataTable.NewRow();
+                row["Employee"] = employeeName;
+                row["Total"] = totalSalary;
+
+                var salaries = employee.SelectNodes("salary");
                 foreach (XmlElement salary in salaries)
                 {
-                    string amountValue = salary.GetAttribute("amount");
-                    if (decimal.TryParse(amountValue.Replace(',', '.'), 
-                                        NumberStyles.Any, 
-                                        CultureInfo.InvariantCulture, 
-                                        out decimal amount))
+                    string mount = salary.GetAttribute("mount").ToLower();
+                    decimal amount = decimal.Parse(salary.GetAttribute("amount").Replace(',', '.'), CultureInfo.InvariantCulture);
+                    
+                    if (!dataTable.Columns.Contains(mount))
                     {
-                        totalSalary += amount;
+                        dataTable.Columns.Add(mount, typeof(decimal));
+                    }
+                    
+                    row[mount] = amount;
+                }
+
+                dataTable.Rows.Add(row);
+            }
+
+            // Рассчитываем общую сумму всех выплат
+            decimal totalAll = 0;
+            foreach (DataRow row in dataTable.Rows)
+            {
+                if (row["Total"] != DBNull.Value)
+                {
+                    totalAll += (decimal)row["Total"];
+                }
+            }
+            lblTotalSummary.Text = $"Общая сумма выплат: {totalAll:N2}";
+        }
+
+        private void UpdateGridViewColumns()
+        {
+            // Сначала скроем все колонки месяцев
+            foreach (DataGridViewColumn column in dataGridView.Columns)
+            {
+                if (column.Name != "Employee" && column.Name != "Total")
+                {
+                    column.Visible = false;
+                }
+            }
+            
+            // Определим правильный порядок месяцев
+            string[] monthOrder = { "january", "february", "march", "april", "may", "june",
+                           "july", "august", "september", "october", "november", "december" };
+            
+            // Покажем колонки в правильном порядке
+            foreach (string month in monthOrder)
+            {
+                if (dataGridView.Columns.Contains(month))
+                {
+                    DataGridViewColumn column = dataGridView.Columns[month];
+                    column.Visible = true;
+                    column.HeaderText = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(month);
+                    column.Width = 80;
+                    column.DefaultCellStyle.Format = "N2";
+                    column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                }
+            }
+            
+            // Настроим фиксированные колонки
+            if (dataGridView.Columns.Contains("Employee"))
+            {
+                dataGridView.Columns["Employee"].HeaderText = "Сотрудник";
+                dataGridView.Columns["Employee"].Width = 150;
+                dataGridView.Columns["Employee"].Frozen = true;
+            }
+        }
+
+        private void btnAddData_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string dataPath = Path.Combine(projectRoot, "Data", "Data1.xml");
+                
+                using (AddDataForm addForm = new AddDataForm(dataPath))
+                {
+                    if (addForm.ShowDialog() == DialogResult.OK)
+                    {
+                        cbDataFile.SelectedItem = "Data1.xml";
+                        btnProcess_Click(sender, e);
                     }
                 }
-                
-                employee.SetAttribute("total-salary", totalSalary.ToString("F2", CultureInfo.InvariantCulture));
             }
-
-            doc.Save(xmlPath);
-        }
-
-        private void AddTotalSumAttribute(string xmlPath)
-        {
-            var doc = new XmlDocument();
-            doc.Load(xmlPath);
-
-            decimal totalAmount = 0;
-            var items = doc.SelectNodes("//item");
-            
-            foreach (XmlElement item in items)
+            catch (Exception ex)
             {
-                string amountValue = item.GetAttribute("amount");
-                if (decimal.TryParse(amountValue.Replace(',', '.'), 
-                                    NumberStyles.Any, 
-                                    CultureInfo.InvariantCulture, 
-                                    out decimal amount))
-                {
-                    totalAmount += amount;
-                }
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            var payElement = doc.DocumentElement;
-            payElement.SetAttribute("total", totalAmount.ToString("F2", CultureInfo.InvariantCulture));
-            
-            doc.Save(xmlPath);
         }
-
-        private void UpdateDataGridView(string xmlPath)
-		{
-			dataTable.Rows.Clear();
-
-			var doc = new XmlDocument();
-			doc.Load(xmlPath);
-
-			var employees = doc.SelectNodes("/Employees/Employee");
-			foreach (XmlElement employee in employees)
-			{
-				string employeeName = $"{employee.GetAttribute("name")} {employee.GetAttribute("surname")}";
-				decimal totalSalary = decimal.Parse(employee.GetAttribute("total-salary"), CultureInfo.InvariantCulture);
-				
-				DataRow row = dataTable.NewRow();
-				row["Employee"] = employeeName;
-				row["Total"] = totalSalary;
-
-				var salaries = employee.SelectNodes("salary");
-				foreach (XmlElement salary in salaries)
-				{
-					string mount = salary.GetAttribute("mount").ToLower();
-					decimal amount = decimal.Parse(salary.GetAttribute("amount").Replace(',', '.'), CultureInfo.InvariantCulture);
-					
-					// Динамически добавляем колонки для месяцев, если их еще нет
-					if (!dataTable.Columns.Contains(mount))
-					{
-						dataTable.Columns.Add(mount, typeof(decimal));
-					}
-					
-					row[mount] = amount;
-				}
-
-				dataTable.Rows.Add(row);
-			}
-
-			// Обновляем DataGridView после изменения структуры таблицы
-			dataGridView.DataSource = null;
-			dataGridView.DataSource = dataTable;
-		}
-
-		private void btnAddData_Click(object sender, EventArgs e)
-		{
-			try
-			{
-				string dataPath = Path.Combine(projectRoot, "Data", "Data1.xml");
-				
-				// Показываем форму добавления данных
-				using (AddDataForm addForm = new AddDataForm(dataPath))
-				{
-					if (addForm.ShowDialog() == DialogResult.OK)
-					{
-						// После добавления данных автоматически запускаем обработку
-						cbDataFile.SelectedItem = "Data1.xml";
-						btnProcess_Click(sender, e);
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
-		}
 
         private Button btnProcess;
         private DataGridView dataGridView;
