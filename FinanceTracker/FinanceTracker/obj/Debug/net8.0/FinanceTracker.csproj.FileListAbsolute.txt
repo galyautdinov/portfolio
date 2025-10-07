@@ -1,0 +1,14 @@
+D:\Документы\Горин\Тестовые\Для ГК Монополия\FinanceTracker\FinanceTracker\bin\Debug\net8.0\FinanceTracker.exe
+D:\Документы\Горин\Тестовые\Для ГК Монополия\FinanceTracker\FinanceTracker\bin\Debug\net8.0\FinanceTracker.deps.json
+D:\Документы\Горин\Тестовые\Для ГК Монополия\FinanceTracker\FinanceTracker\bin\Debug\net8.0\FinanceTracker.runtimeconfig.json
+D:\Документы\Горин\Тестовые\Для ГК Монополия\FinanceTracker\FinanceTracker\bin\Debug\net8.0\FinanceTracker.dll
+D:\Документы\Горин\Тестовые\Для ГК Монополия\FinanceTracker\FinanceTracker\bin\Debug\net8.0\FinanceTracker.pdb
+D:\Документы\Горин\Тестовые\Для ГК Монополия\FinanceTracker\FinanceTracker\obj\Debug\net8.0\FinanceTracker.GeneratedMSBuildEditorConfig.editorconfig
+D:\Документы\Горин\Тестовые\Для ГК Монополия\FinanceTracker\FinanceTracker\obj\Debug\net8.0\FinanceTracker.AssemblyInfoInputs.cache
+D:\Документы\Горин\Тестовые\Для ГК Монополия\FinanceTracker\FinanceTracker\obj\Debug\net8.0\FinanceTracker.AssemblyInfo.cs
+D:\Документы\Горин\Тестовые\Для ГК Монополия\FinanceTracker\FinanceTracker\obj\Debug\net8.0\FinanceTracker.csproj.CoreCompileInputs.cache
+D:\Документы\Горин\Тестовые\Для ГК Монополия\FinanceTracker\FinanceTracker\obj\Debug\net8.0\FinanceTracker.dll
+D:\Документы\Горин\Тестовые\Для ГК Монополия\FinanceTracker\FinanceTracker\obj\Debug\net8.0\refint\FinanceTracker.dll
+D:\Документы\Горин\Тестовые\Для ГК Монополия\FinanceTracker\FinanceTracker\obj\Debug\net8.0\FinanceTracker.pdb
+D:\Документы\Горин\Тестовые\Для ГК Монополия\FinanceTracker\FinanceTracker\obj\Debug\net8.0\FinanceTracker.genruntimeconfig.cache
+D:\Документы\Горин\Тестовые\Для ГК Монополия\FinanceTracker\FinanceTracker\obj\Debug\net8.0\ref\FinanceTracker.dll
